@@ -4,7 +4,6 @@ class Animal {
     public $id;
     public $kindOfAnimal = "Undefined animal";
     public $nameProduction = "Undefined production";
-    public $isValid = false;
 
     public function getProduction() {
         throw new Exception("Undefined animal");
@@ -19,7 +18,6 @@ class Animal {
 class Chicken extends Animal {
     public $kindOfAnimal = "chicken";
     public $nameProduction = "eggs";
-    public $isValid = true;
 
     public function getProduction() {
         return rand(0, 1);
@@ -29,7 +27,6 @@ class Chicken extends Animal {
 class Cow extends Animal {
     public $kindOfAnimal = "cow";
     public $nameProduction = "milk (liters)";
-    public $isValid = true;
 
     public function getProduction() {
         return rand(8, 12);
@@ -46,8 +43,7 @@ class Farm {
     public function getProduction() {
         $produnction = [];
         foreach($this->animal as $animal) {
-            if($animal->isValid)
-                $produnction[$animal->nameProduction] += $animal->getProduction();
+            $produnction[$animal->nameProduction] += $animal->getProduction();
         }
         return $produnction;
     }
