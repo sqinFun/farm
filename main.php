@@ -37,20 +37,10 @@ class Cow extends Animal {
 }
 
 class Farm {
-    private static $count = 0;
     private $animal = [];
 
-    public function addAnimal($animal) {
-        switch($animal) {
-            case "cow":
-                array_push($this->animal, new Cow(self::$count++));
-            break;
-            case "chicken":
-                array_push($this->animal, new Chicken(self::$count++));  
-            break;
-            default:
-                array_push($this->animal, new Animal(self::$count++, $animal));
-        }        
+    public function addAnimal(Animal $animal) {
+        $this->animal[] = $animal;  
     }
 
     public function getProduction() {
@@ -66,11 +56,13 @@ class Farm {
 $myFarm = new Farm();
 
 for ($i = 0; $i < 10; $i++) {
-    $myFarm->addAnimal("cow");
+    $id = md5(random_bytes(15));
+    $myFarm->addAnimal(new Cow($id));
 }
 
 for ($i = 0; $i < 20; $i++) {
-    $myFarm->addAnimal("chicken");
+    $id = md5(random_bytes(15));
+    $myFarm->addAnimal(new Chicken($id));
 }
 
 $myFarm->getProduction();
